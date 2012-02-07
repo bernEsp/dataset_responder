@@ -1,19 +1,28 @@
 # -*- encoding : utf-8 -*-
 require './data/init.rb'
+
 class Datasets < Sinatra::Base
-  
+  Rabl.register!  
   get '/dataset/:account.json?:page?' do
     content_type :json
+    @data = {}
+    @data = {:features => [], :meta => {:type => "FeatureCollection"}}
     if params[:account] = "smadf"
       page = params[:page]
 
       finish = page.nil?? page : page.to_i * 1000
+      @reports = []
       if finish.nil?
-         reports = Report.limit(5000)
+        dataset_report = Report.limit(5000)
       else
-        reports = Report.limit(1000, finish)
+        dataset_report =  Report.limit(1000, finish)
       end
-      reports.to_json
+      dataset_report.each do |report|
+        feature = {:geometry => {:coordinates =>  [report.Long.to_f, report.Lat.to_f], :type => "Point" }, :properties => {:popupContent => report.Observaciones, :locations => report.Calle}, :type => "Feature", :id => report.No_Arbol}        
+        @data[:features] << feature
+      end
+      @reports = @data
+      @reports.to_json 
     else
        "No data for this account"
     end
