@@ -1,5 +1,11 @@
-adapter: mysql2
-host: localhost
-username: root 
-password: reghina24
-database: datasets
+development:
+  adapter: mysql2
+  host: localhost
+  username: root 
+  password: reghina24
+  database: datasets
+
+production:
+  adapter: postgresql
+  host: localhost
+  database: citivoxsb_production  
