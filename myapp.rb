@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 require './data/init.rb'
 
-class Datasets < Sinatra::Base
-  Rabl.register!  
+class Datasets < Sinatra::Base  
   get '/dataset/:account.json?:page?' do
     content_type :json
     @data = {}
