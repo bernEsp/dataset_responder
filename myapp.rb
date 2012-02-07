@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 require './data/init.rb'
 
-class Datasets < Sinatra::Base
-  Rabl.register!  
+class Datasets < Sinatra::Base  
   get '/dataset/:account.json?:page?' do
     content_type :json
     @data = {}
@@ -18,7 +17,7 @@ class Datasets < Sinatra::Base
         dataset_report =  Report.limit(1000, finish)
       end
       dataset_report.each do |report|
-        feature = {:geometry => {:coordinates =>  [report.Long.to_f, report.Lat.to_f], :type => "Point" }, :properties => {:popupContent => report.Observaciones, :locations => report.Calle}, :type => "Feature", :id => report.No_Arbol}        
+        feature = {:geometry => {:coordinates =>  [report.longitude.to_f, report.latitude.to_f], :type => "Point" }, :properties => {:popupContent => report.show_content, :locations => report.location}, :type => "Feature", :id => report.uuid}        
         @data[:features] << feature
       end
       @reports = @data
