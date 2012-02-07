@@ -3,8 +3,8 @@ class BaseSchema < Sequel::Migration
    create_table! :reports do 
    primary_key :No_Arbol
    Integer :OID
-   Float :Lat
-   Float :Long
+   Real :Lat
+   Real :Long
    String :UnidadN
    String :UnidadC
    String  :Delegacion

@@ -7,8 +7,6 @@ require 'csv'
 require './data/init.rb'
 class JsonToMysql
 
-  CSV.open('./Arbol-Urbano-2.csv', 'r', ',') do |row|
-    Report.create(row)
-  end
+  DB.run("load data local infile '~/projects/smadf_dataset/Arbol-Urbano.txt' into table reports fields terminated by ',' lines terminated by '\r';")
   
 end
